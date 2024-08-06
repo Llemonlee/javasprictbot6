@@ -1,4 +1,4 @@
-import { Client, Events, GatewayIntentBits } from "discord.js"
+import { Client, GatewayIntentBits } from "discord.js"
 import vueinit from '@/core/vue'
 import dotenv from 'dotenv'
 import {useAppStore} from '@/store/app'
