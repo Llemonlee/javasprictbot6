@@ -1,5 +1,5 @@
 import { Events } from "discord.js";
-import { buttonAction } from "../../commands/button/index.js";
+import { buttonAction } from "@/commands/button/index.js";
 
 export const event = {
     name: Events.InteractionCreate,
