@@ -6,5 +6,5 @@ export const command = new SlashCommandBuilder()
  .setDescription("hi command")
 
 export const action = async(ctx) =>{
- await ctx.reply('hi!')
+ await ctx.reply('早安!')
 }
