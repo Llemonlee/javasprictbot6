@@ -10,7 +10,7 @@ export const event = {
 
 export const action = async (client) => {
   console.log(`Ready! Logged in as ${client.user.tag}`);
-  
+
   const channel = await client.channels.fetch(CHANNEL_ID);
   if (!channel) {
     console.error('找不到指定的頻道!');
