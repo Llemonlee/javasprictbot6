@@ -1,5 +1,5 @@
 import { Events } from 'discord.js';
-import { createButton } from '../commands/button/index.js';
+import { createButton } from '@/commands/button/index.js';
 
 const CHANNEL_ID = '1257348357148508210';
 
