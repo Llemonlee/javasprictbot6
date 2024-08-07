@@ -1,5 +1,5 @@
 import { Events } from "discord.js";
-import { buttonAction } from "@/commands/button/index.js";
+import { handleAutoButton } from "@/commands/button/index.js";
 
 export const event = {
     name: Events.InteractionCreate,
@@ -10,10 +10,13 @@ export const action = async (interaction) => {
     if (!interaction.isButton()) return;
 
     try {
-        await buttonAction(interaction);
+        await handleAutoButton(interaction);
     } catch (error) {
+        console.error('處理按鈕交互時出錯:', error);
         if (!interaction.replied && !interaction.deferred) {
             await interaction.reply({ content: '處理您的請求時發生錯誤。', ephemeral: true });
+        } else {
+            await interaction.followUp({ content: '處理您的請求時發生錯誤。', ephemeral: true });
         }
     }
 };
