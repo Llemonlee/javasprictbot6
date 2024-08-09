@@ -1,5 +1,5 @@
 import { Events } from 'discord.js';
-import { createButton } from '@/commands/button/index.js';
+import { createButtons } from '@/commands/button/index.js'; // 使用正确的导入路径
 
 const CHANNEL_ID = '1257348357148508210';
 
@@ -13,11 +13,11 @@ export const action = async (client) => {
 
   const channel = await client.channels.fetch(CHANNEL_ID);
   if (!channel) {
-    console.error('找不到指定的頻道!');
+    console.error('找不到指定的频道!');
     return;
   }
 
-  const buttonMessage = createButton();
+  const buttonMessage = createButtons();
   await channel.send(buttonMessage);
-  console.log('按鈕消息已發送到指定頻道!');
+  console.log('按钮消息已发送到指定频道!');
 };
