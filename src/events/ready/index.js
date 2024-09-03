@@ -1,8 +1,8 @@
-import { Events } from 'discord.js';
-import { createButtons } from '@/commands/button/index.js'; // 使用正确的导入路径
+import { Events,ActionRowBuilder } from 'discord.js';
+import { createButtons as createJoinButtons } from '@/commands/joinbutton/index.js'; // 为 joinbutton 重命名
+import { createButtons as createIdentityButtons } from '@/commands/identitybutton/index.js'; // 为 identitybutton 重命名
 
 const CHANNEL_ID = '1257348357148508210';
-const BUTTON_MESSAGE_ID = 'buttonMessageId'; // 用于存储按钮消息的 ID
 
 export const event = {
   name: Events.ClientReady,
@@ -18,8 +18,7 @@ export const action = async (client) => {
     return;
   }
 
-  // 检查是否已经发送过按钮消息
-  const messages = await channel.messages.fetch({ limit: 100 }); // 获取最近的100条消息
+  const messages = await channel.messages.fetch({ limit: 100 });
   const buttonMessage = messages.find(msg => msg.author.id === client.user.id && msg.components.length > 0);
 
   if (buttonMessage) {
@@ -27,9 +26,22 @@ export const action = async (client) => {
     return;
   }
 
-  // 如果没有找到则发送新的按钮消息
-  const newButtonMessage = createButtons();
-  const sentMessage = await channel.send(newButtonMessage);
+  const joinButtonsMessage = createJoinButtons();
+  const identityButtonsMessage = createIdentityButtons();
+
+  // 将 identityButtonsMessage 中的按钮分成两个 ActionRow
+  const firstRowButtons = identityButtonsMessage.components[0].components.slice(0, 5);
+  const secondRowButtons = identityButtonsMessage.components[0].components.slice(5);
+
+  const firstRow = new ActionRowBuilder().addComponents(firstRowButtons);
+  const secondRow = new ActionRowBuilder().addComponents(secondRowButtons);
+
+  // 发送 join 和 identity 的按钮消息
+  await channel.send(joinButtonsMessage);
+  await channel.send({ 
+    content: identityButtonsMessage.content, 
+    components: [firstRow, secondRow] 
+  });
 
   console.log('按钮消息已发送到指定频道!');
 };

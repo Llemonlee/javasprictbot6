@@ -1,8 +1,8 @@
 import { SlashCommandBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } from 'discord.js';
 
 export const command = new SlashCommandBuilder()
-  .setName("button")
-  .setDescription("顯示多個按鈕");
+  .setName("joinbutton")
+  .setDescription("顯示身分組按鈕");
 
 export const createButtons = () => {
   const visitorButton = new ButtonBuilder()
@@ -33,7 +33,7 @@ export const action = async (ctx) => {
   await ctx.reply(createButtons());
 };
 
-export const buttonAction = async (interaction) => {
+export const joinbuttonAction = async (interaction) => {
   const roleMappings = {
     KDButton: { id: '1257691227789328435', label: 'KD邀我的!' },
     DemonButton: { id: '1257691227789328436', label: 'DEMONALNNS邀我的!' },
